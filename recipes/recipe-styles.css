@@ -30,6 +30,7 @@ body { font-family: 'Poppins', 'Urbanist', system-ui, -apple-system, Segoe UI, R
 
 /* Small preference bar on recipe pages */
 .pref-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+.pref-bar .toggle-btn { color: #111827; border-color: #e5e7eb; }
 
 /* 3) Back nav */
 .nav-home {

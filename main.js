@@ -25,6 +25,26 @@
   const applyTheme = (theme) => document.documentElement.setAttribute('data-theme', theme);
   const applyMotion = (motion) => document.documentElement.setAttribute('data-motion', motion);
 
+  // Update toggle button labels for clarity (no symbols)
+  const updateToggleLabels = () => {
+    if (themeToggle) {
+      const t = document.documentElement.getAttribute('data-theme');
+      const system = systemPrefersDark() ? 'dark' : 'light';
+      let label = 'Dark: ';
+      if (localStorage.getItem(THEME_KEY)) label += (t === 'dark' ? 'On' : 'Off');
+      else label += `Auto (${system})`;
+      themeToggle.textContent = label;
+    }
+    if (motionToggle) {
+      const m = document.documentElement.getAttribute('data-motion');
+      const systemReduced = systemPrefersReduced();
+      let label = 'Motion: ';
+      if (localStorage.getItem(MOTION_KEY)) label += (m === 'reduced' ? 'Reduced' : 'Full');
+      else label += `Auto (${systemReduced ? 'Reduced' : 'Full'})`;
+      motionToggle.textContent = label;
+    }
+  };
+
   // Load saved preferences or fallback to system
   const savedTheme = localStorage.getItem(THEME_KEY);
   const savedMotion = localStorage.getItem(MOTION_KEY);
@@ -63,31 +83,49 @@
   // 3) Theme toggle handler
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'light';
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      localStorage.setItem(THEME_KEY, next);
-      themeToggle.textContent = next === 'dark' ? '🌙' : '☀️';
-      themeToggle.setAttribute('aria-pressed', String(next === 'dark'));
+      // Cycle: Auto -> Dark -> Light -> Auto
+      const hasPref = !!localStorage.getItem(THEME_KEY);
+      if (!hasPref) {
+        const next = 'dark';
+        applyTheme(next);
+        localStorage.setItem(THEME_KEY, next);
+      } else {
+        const current = localStorage.getItem(THEME_KEY);
+        if (current === 'dark') {
+          applyTheme('light');
+          localStorage.setItem(THEME_KEY, 'light');
+        } else if (current === 'light') {
+          localStorage.removeItem(THEME_KEY);
+          applyTheme(systemPrefersDark() ? 'dark' : 'light');
+        }
+      }
+      updateToggleLabels();
     });
-    // Initialize icon state
-    const initial = document.documentElement.getAttribute('data-theme');
-    themeToggle.textContent = initial === 'dark' ? '🌙' : '☀️';
+    updateToggleLabels();
   }
 
   // 4) Motion toggle handler
   if (motionToggle) {
     motionToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-motion') || 'full';
-      const next = current === 'reduced' ? 'full' : 'reduced';
-      applyMotion(next);
-      localStorage.setItem(MOTION_KEY, next);
-      motionToggle.textContent = next === 'reduced' ? '🚫🌀' : '🌀';
-      motionToggle.setAttribute('aria-pressed', String(next === 'reduced'));
+      // Cycle: Auto -> Reduced -> Full -> Auto
+      const hasPref = !!localStorage.getItem(MOTION_KEY);
+      if (!hasPref) {
+        const next = 'reduced';
+        applyMotion(next);
+        localStorage.setItem(MOTION_KEY, next);
+      } else {
+        const current = localStorage.getItem(MOTION_KEY);
+        if (current === 'reduced') {
+          applyMotion('full');
+          localStorage.setItem(MOTION_KEY, 'full');
+        } else if (current === 'full') {
+          localStorage.removeItem(MOTION_KEY);
+          applyMotion(systemPrefersReduced() ? 'reduced' : 'full');
+        }
+      }
+      updateToggleLabels();
     });
-    // Initialize icon state
-    const initial = document.documentElement.getAttribute('data-motion');
-    motionToggle.textContent = initial === 'reduced' ? '🚫🌀' : '🌀';
+    updateToggleLabels();
   }
 
   // 5) Recipe filtering and sorting (client-only, data-attributes driven)
