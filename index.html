@@ -3,42 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chef Abby's Recipe Collection</title>
+    <title>Chef Abby's Kitchen</title>
+    <!-- Professional: performance-friendly Google Fonts preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Core styles for the magazine-inspired UI -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Lightweight UX enhancements (mobile nav, sticky header) -->
+    <script defer src="main.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Chef Abby's Recipe Collection</h1>
-            <p class="subtitle">Discover delicious recipes crafted with love and tradition</p>
+    <!--
+      Site chrome inspired by editorial food sites like Delish:
+      - Sticky navigation with a minimal brand wordmark
+      - Hero banner to spotlight seasonal collections
+      - Responsive recipe cards w/ image covers and clear CTAs
+    -->
+    <header class="site-header" id="siteHeader">
+      <nav class="nav">
+        <a class="brand" href="./">Chef Abby</a>
+
+        <!-- Desktop navigation: uses flexbox for layout control -->
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#featured">Featured</a></li>
+          <li><a href="#latest">Latest</a></li>
+          <li><a href="#tips">Kitchen Tips</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="toggle-btn" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+          <button class="toggle-btn" id="motionToggle" aria-label="Toggle reduced motion">🌀</button>
+          <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero banner: simple gradient background to keep assets light -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">It's Already August!</p>
+        <h1 class="hero-title">101 Summer Dinner Recipes</h1>
+        <p class="hero-subtitle">Fresh, fast, and flavor-packed. Your weeknight rotation just got an upgrade.</p>
+        <div class="hero-ctas">
+          <a class="cta primary" href="#featured">Explore Recipes</a>
+          <a class="cta secondary" href="#tips">Get Kitchen Tips</a>
+        </div>
+      </div>
+    </section>
+
+    <main class="page">
+      <!-- Featured grid: image-forward recipe cards reminiscent of editorial tiles -->
+      <section class="section" id="featured">
+        <header class="section-header">
+          <h2>On The Menu</h2>
+          <p class="section-subtitle">Make our editors' seasonal favorites.</p>
         </header>
 
-        <main class="recipe-grid">
-            <article class="recipe-card">
-                <span class="icon">🍚</span>
-                <h2>Perfect Jollof Rice</h2>
-                <p>Learn the authentic Ghanaian way to make the perfect Jollof rice with aromatic spices and that signature smoky flavor that makes it irresistible.</p>
-                <a href="recipes/Jollof.html" class="recipe-link">View Recipe</a>
-            </article>
+        <!--
+          Controls: tabs (category), search and sorting
+          - Data attributes on cards power client-only filtering/sorting
+        -->
+        <div class="controls" aria-label="Recipe controls">
+          <div class="tabs" role="tablist" aria-label="Categories">
+            <button class="tab is-active" role="tab" aria-selected="true" data-category="all">All</button>
+            <button class="tab" role="tab" aria-selected="false" data-category="popular">Popular</button>
+            <button class="tab" role="tab" aria-selected="false" data-category="baking">Baking</button>
+            <button class="tab" role="tab" aria-selected="false" data-category="weeknight">Weeknight</button>
+          </div>
+          <div class="input-row">
+            <input class="search-input" id="recipeSearch" type="search" placeholder="Search recipes..." aria-label="Search recipes" />
+            <select class="sort-select" id="recipeSort" aria-label="Sort recipes">
+              <option value="az">A–Z</option>
+              <option value="za">Z–A</option>
+              <option value="new">Newest</option>
+              <option value="old">Oldest</option>
+              <option value="pop">Most Popular</option>
+            </select>
+          </div>
+        </div>
 
-            <article class="recipe-card">
-                <span class="icon">🧁</span>
-                <h2>Classic Rock Buns</h2>
-                <p>Traditional British-style rock buns with a delightfully rough texture and sweet flavor. Perfect for tea time or as a comforting snack.</p>
-                <a href="recipes/rockbuns.html" class="recipe-link">View Recipe</a>
-            </article>
+        <div class="card-grid" id="recipeGrid">
+          <!-- Card 1: Jollof -->
+          <a class="card" href="recipes/Jollof.html" data-title="Perfect Jollof Rice" data-category="popular" data-date="2024-06-15" data-popularity="98">
+            <figure class="card-media">
+              <img src="recipes/Jollof.jpg" alt="Perfect Jollof Rice" loading="lazy">
+            </figure>
+            <div class="card-body">
+              <span class="chip">Popular</span>
+              <h3 class="card-title">Perfect Jollof Rice</h3>
+              <p class="card-meta">Smoky, spicy, and deeply savory rice done right.</p>
+            </div>
+          </a>
 
-            <article class="recipe-card">
-                <span class="icon">🍟</span>
-                <h2>Ultimate Loaded Fries</h2>
-                <p>Crispy fries topped with seasoned meat, melted cheese, and a special sauce blend. The perfect comfort food for any occasion.</p>
-                <a href="recipes/loadedfries.html" class="recipe-link">View Recipe</a>
-            </article>
-        </main>
+          <!-- Card 2: Rock Buns -->
+          <a class="card" href="recipes/rockbuns.html" data-title="Classic Rock Buns" data-category="baking" data-date="2024-07-05" data-popularity="76">
+            <figure class="card-media">
+              <img src="recipes/Rockbuns.jpg" alt="Classic Rock Buns" loading="lazy">
+            </figure>
+            <div class="card-body">
+              <span class="chip">Baking</span>
+              <h3 class="card-title">Classic Rock Buns</h3>
+              <p class="card-meta">The rugged tea-time treat with perfect crumb.</p>
+            </div>
+          </a>
 
-        <footer class="footer">
-            <p>&copy; 2024 Chef Abby's Kitchen. Made with ❤️ for food lovers everywhere.</p>
-        </footer>
-    </div>
-</body>
+          <!-- Card 3: Loaded Fries -->
+          <a class="card" href="recipes/loadedfries.html" data-title="Ultimate Loaded Fries" data-category="weeknight" data-date="2024-07-28" data-popularity="88">
+            <figure class="card-media">
+              <img src="recipes/LoadedFries.jpg" alt="Ultimate Loaded Fries" loading="lazy">
+            </figure>
+            <div class="card-body">
+              <span class="chip">Weeknight</span>
+              <h3 class="card-title">Ultimate Loaded Fries</h3>
+              <p class="card-meta">Crispy fries, melty cheese, and bold sauces.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Empty state: appears when filters remove all matches -->
+        <div class="empty-state" id="emptyState" hidden>
+          <p>No recipes match your filters. Try clearing the search or choosing a different category.</p>
+        </div>
+      </section>
+
+      <!-- Latest section: simple text list to demonstrate layout variety -->
+      <section class="section" id="latest">
+        <header class="section-header">
+          <h2>Latest</h2>
+          <p class="section-subtitle">Fresh out of the kitchen.</p>
+        </header>
+        <ul class="list">
+          <li><a href="recipes/Jollof.html">How To Get The Perfect Jollof Rice</a></li>
+          <li><a href="recipes/rockbuns.html">How To Make Classic Rock Buns</a></li>
+          <li><a href="recipes/loadedfries.html">Ultimate Loaded Fries Recipe</a></li>
+        </ul>
+      </section>
+
+      <!-- Kitchen Tips CTA: mirrors editorial promos with strong accent button -->
+      <section class="promo" id="tips">
+        <div class="promo-inner">
+          <h3>Kitchen Tips & Tools</h3>
+          <p>Sharpen your skills with smart techniques and time-saving tools.</p>
+          
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="about">
+      <div class="footer-inner">
+        <p>&copy; 2024 Chef Abby's Kitchen — Made with ❤️ for food lovers everywhere.</p>
+      </div>
+    </footer>
+  </body>
 </html>
