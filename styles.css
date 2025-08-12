@@ -6,9 +6,9 @@
 
 /* 1) CSS Reset + sensible defaults */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -53,7 +53,7 @@ body {
 /* 2) Sticky site header */
 .site-header {
   position: sticky;
-  top: 0;
+    top: 0;
   z-index: 1000;
   background: rgba(255,255,255,0.08);
   backdrop-filter: saturate(140%) blur(10px);
@@ -79,7 +79,7 @@ body {
 
 .nav-links {
   display: flex;
-  align-items: center;
+    align-items: center;
   gap: 20px;
   list-style: none;
 }
@@ -179,6 +179,19 @@ body {
 .promo-inner h3 { font-size: 22px; margin-bottom: 6px; }
 .promo-inner p { color: var(--muted); }
 
+/* Coming soon micro-UI for Tips & Tools */
+.coming-wrap { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-top: 10px; }
+.badge-coming { background: rgba(108,99,255,0.18); color: var(--text); border: 1px solid rgba(255,255,255,0.14); padding: 6px 10px; border-radius: 999px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; }
+.skeleton-group { display: grid; gap: 8px; min-width: 220px; flex: 1; }
+.skeleton { position: relative; overflow: hidden; background: rgba(255,255,255,0.08); border-radius: 10px; }
+.skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); animation: shimmer 1.2s infinite; }
+.skeleton-line { height: 10px; }
+.skeleton-pill { height: 28px; border-radius: 999px; }
+.w-80 { width: 80%; }
+.w-60 { width: 60%; }
+.w-40 { width: 40%; }
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
 /* 8) Footer */
 .site-footer { padding: 28px 16px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 24px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 10px; align-items: center; justify-content: space-between; color: #cbd5e1; }
@@ -224,14 +237,7 @@ body {
    - Allow user override via [data-motion="reduced"|"full"]
    ------------------------------------------------------------ */
 
-html[data-motion="reduced"] *,
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* Reduced motion override removed per product decision (site keeps subtle motion) */
 
 /* Utility: small toggle buttons */
 .toggle-btn { background: transparent; border: 1px solid rgba(255,255,255,0.18); color: #fff; padding: 6px 10px; border-radius: 999px; cursor: pointer; }

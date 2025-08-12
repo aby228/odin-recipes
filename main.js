@@ -5,8 +5,7 @@
   const header = document.getElementById('siteHeader');
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
-  const themeToggle = document.getElementById('themeToggle');
-  const motionToggle = document.getElementById('motionToggle');
+  // Dark mode and reduced motion toggles removed per product decision
   const tabs = document.querySelectorAll('.tab');
   const searchInput = document.getElementById('recipeSearch');
   const sortSelect = document.getElementById('recipeSort');
@@ -14,16 +13,15 @@
   const emptyState = document.getElementById('emptyState');
 
   // Preference keys
-  const THEME_KEY = 'chefAbby.theme'; // 'dark' | 'light'
-  const MOTION_KEY = 'chefAbby.motion'; // 'reduced' | 'full'
+  // Preference keys removed (we default to dark mode; motion uses system/standard CSS)
 
   // Determine system preferences as sensible defaults
-  const systemPrefersDark = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const systemPrefersReduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const systemPrefersDark = () => true; // Force dark by default
+  const systemPrefersReduced = () => false;
 
   // Apply theme and motion attributes to <html> for CSS to consume
   const applyTheme = (theme) => document.documentElement.setAttribute('data-theme', theme);
-  const applyMotion = (motion) => document.documentElement.setAttribute('data-motion', motion);
+  const applyMotion = () => {};
 
   // Update toggle button labels for clarity (no symbols)
   const updateToggleLabels = () => {
@@ -46,10 +44,8 @@
   };
 
   // Load saved preferences or fallback to system
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  const savedMotion = localStorage.getItem(MOTION_KEY);
-  applyTheme(savedTheme || (systemPrefersDark() ? 'dark' : 'light'));
-  applyMotion(savedMotion || (systemPrefersReduced() ? 'reduced' : 'full'));
+  // Always apply dark theme on load
+  applyTheme('dark');
 
   // 1) Sticky shadow on scroll: visually separates content from header
   const toggleHeaderShadow = () => {
@@ -80,53 +76,7 @@
     });
   }
 
-  // 3) Theme toggle handler
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      // Cycle: Auto -> Dark -> Light -> Auto
-      const hasPref = !!localStorage.getItem(THEME_KEY);
-      if (!hasPref) {
-        const next = 'dark';
-        applyTheme(next);
-        localStorage.setItem(THEME_KEY, next);
-      } else {
-        const current = localStorage.getItem(THEME_KEY);
-        if (current === 'dark') {
-          applyTheme('light');
-          localStorage.setItem(THEME_KEY, 'light');
-        } else if (current === 'light') {
-          localStorage.removeItem(THEME_KEY);
-          applyTheme(systemPrefersDark() ? 'dark' : 'light');
-        }
-      }
-      updateToggleLabels();
-    });
-    updateToggleLabels();
-  }
-
-  // 4) Motion toggle handler
-  if (motionToggle) {
-    motionToggle.addEventListener('click', () => {
-      // Cycle: Auto -> Reduced -> Full -> Auto
-      const hasPref = !!localStorage.getItem(MOTION_KEY);
-      if (!hasPref) {
-        const next = 'reduced';
-        applyMotion(next);
-        localStorage.setItem(MOTION_KEY, next);
-      } else {
-        const current = localStorage.getItem(MOTION_KEY);
-        if (current === 'reduced') {
-          applyMotion('full');
-          localStorage.setItem(MOTION_KEY, 'full');
-        } else if (current === 'full') {
-          localStorage.removeItem(MOTION_KEY);
-          applyMotion(systemPrefersReduced() ? 'reduced' : 'full');
-        }
-      }
-      updateToggleLabels();
-    });
-    updateToggleLabels();
-  }
+  // 3) Removed toggle handlers; site runs in dark by default
 
   // 5) Recipe filtering and sorting (client-only, data-attributes driven)
   /**

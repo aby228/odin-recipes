@@ -96,8 +96,4 @@ p strong em { color: #ef4444; }
   .recipe-image { height: 220px; }
 }
 
-/* Motion preferences: disable animations if reduced */
-html[data-motion="reduced"] *,
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
+/* Reduced motion override removed per product decision */
