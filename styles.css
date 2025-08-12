@@ -45,9 +45,7 @@ body {
   font-family: 'Poppins', 'Urbanist', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
   color: var(--text);
-  background: radial-gradient(1200px 400px at 10% -10%, rgba(108,99,255,0.25), transparent 60%),
-              radial-gradient(1200px 400px at 90% -10%, rgba(255,107,107,0.22), transparent 60%),
-              linear-gradient(180deg, var(--bg) 0%, #0a0c18 100%);
+  background: linear-gradient(180deg, var(--bg) 0%, #0a0c18 100%);
 }
 
 /* 2) Sticky site header */
@@ -55,9 +53,9 @@ body {
   position: sticky;
     top: 0;
   z-index: 1000;
-  background: rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.25);
   backdrop-filter: saturate(140%) blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .nav {
@@ -105,7 +103,7 @@ body {
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: var(--radius-xl);
   padding: 28px;
-  color: #f9fafb;
+  color: var(--text);
   box-shadow: var(--shadow-md);
 }
 
@@ -116,7 +114,7 @@ body {
 .hero-ctas { display: flex; gap: 12px; margin-top: 16px; }
 .cta { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; border-radius: 999px; padding: 10px 16px; }
 .cta.primary { background: var(--card); color: #111827; }
-.cta.secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.25); }
+.cta.secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.18); }
 .cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 
 /* 4) Sections */
@@ -175,7 +173,7 @@ body {
 
 /* 7) Promotional block */
 .promo { margin-top: 28px; }
-.promo-inner { background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(255,107,107,0.18)); padding: 24px; border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius-xl); color: var(--text); box-shadow: var(--shadow-md); }
+.promo-inner { background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(255,107,107,0.12)); padding: 24px; border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-xl); color: var(--text); box-shadow: var(--shadow-md); }
 .promo-inner h3 { font-size: 22px; margin-bottom: 6px; }
 .promo-inner p { color: var(--muted); }
 
