@@ -32,4 +32,4 @@ A polished, editorial-style recipe site built with semantic HTML, modern CSS (Fl
 - Print-friendly recipe pages
 
 ### Contact
-- **LinkedIn**: `https://www.linkedin.com/in/abraham-yarba`
+- [LinkedIn](https://www.linkedin.com/in/abraham-yarba)
