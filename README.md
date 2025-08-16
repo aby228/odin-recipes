@@ -4,7 +4,7 @@ Authentic Ghanaian recipes curated from Chef Abby's YouTube videos.
 
 A polished, editorial-style recipe site built with semantic HTML, modern CSS (Flexbox/Grid), and a touch of vanilla JS. Designed to be fast, responsive, and accessible.
 
-- [Live demo](https://aby228.github.io/odin-recipes/)
+- [Live demo](https://aby228.github.io/Chef_Abbys_Recipe/)
 
 ### Highlights
 - **Editorial UI**: sticky header, hero section, image-forward cards, and promo areas.
